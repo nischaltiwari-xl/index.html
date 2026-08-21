@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nischal Tiwari — Technical Analyst</title>
+<meta name="description" content="Nischal Tiwari — Technical Analyst specializing in IT Operations, cross-functional coordination, and project delivery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d13;
+    --bg-alt: #0e1219;
+    --surface: #12161f;
+    --surface-2: #161b26;
+    --border: #232a38;
+    --border-soft: #1a202c;
+    --text: #e7ecf3;
+    --text-dim: #8a93a6;
+    --text-faint: #4d5566;
+    --accent: #57e6c8;
+    --accent-dim: #2f5f57;
+    --amber: #f0ac3f;
+    --amber-dim: #5b481f;
+    --radius: 3px;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --sans: 'Manrope', -apple-system, sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size:64px 64px;
+    background-position:center top;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  ::selection{background:var(--accent);color:#06110e;}
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  header.topnav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,13,19,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .topnav-inner{
+    max-width:920px;margin:0 auto;padding:16px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:0.02em;color:var(--text);
+  }
+  .logo span{color:var(--accent);}
+  nav.links{display:flex;gap:28px;}
+  nav.links a{
+    font-family:var(--mono);font-size:12px;color:var(--text-dim);letter-spacing:0.04em;
+    transition:color .15s ease;
+  }
+  nav.links a:hover{color:var(--accent);}
+  .status-pill{
+    display:flex;align-items:center;gap:7px;
+    font-family:var(--mono);font-size:11px;color:var(--accent);
+    border:1px solid var(--accent-dim);border-radius:20px;padding:5px 11px;
+    letter-spacing:0.04em;
+  }
+  .dot{
+    width:6px;height:6px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 rgba(87,230,200,0.6);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(87,230,200,0.5);}
+    70%{box-shadow:0 0 0 6px rgba(87,230,200,0);}
+    100%{box-shadow:0 0 0 0 rgba(87,230,200,0);}
+  }
+  @media (max-width:640px){ nav.links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:96px 0 64px;}
+  .terminal{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 40px 80px -40px rgba(0,0,0,0.6);
+  }
+  .terminal-bar{
+    display:flex;align-items:center;gap:8px;
+    padding:10px 14px;border-bottom:1px solid var(--border);
+    background:var(--surface-2);
+  }
+  .tbtn{width:10px;height:10px;border-radius:50%;background:var(--border);}
+  .terminal-title{
+    margin-left:8px;font-family:var(--mono);font-size:11px;color:var(--text-faint);
+  }
+  .terminal-body{padding:32px 28px 36px;}
+  .prompt-line{
+    font-family:var(--mono);font-size:13px;color:var(--text-dim);margin-bottom:6px;
+  }
+  .prompt-line .sym{color:var(--accent);margin-right:8px;}
+  h1.name{
+    font-family:var(--sans);font-weight:800;
+    font-size:clamp(34px,6vw,56px);
+    letter-spacing:-0.02em;
+    margin:10px 0 6px;
+    color:var(--text);
+  }
+  .cursor{
+    display:inline-block;width:0.5em;height:0.8em;background:var(--accent);
+    animation:blink 1s step-end infinite;vertical-align:-0.05em;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  .role-line{
+    font-family:var(--mono);font-size:15px;color:var(--accent);margin-bottom:18px;
+    min-height:1.4em;
+  }
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:18px;
+    font-family:var(--mono);font-size:12px;color:var(--text-dim);
+    margin-bottom:26px;
+  }
+  .meta-row span{display:flex;align-items:center;gap:6px;}
+  .meta-row span::before{content:'▸';color:var(--text-faint);}
+
+  .uptime-box{
+    border-top:1px dashed var(--border);
+    margin-top:22px;padding-top:20px;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;
+  }
+  .uptime-label{font-family:var(--mono);font-size:11px;color:var(--text-faint);letter-spacing:0.06em;}
+  .uptime-value{
+    font-family:var(--mono);font-size:15px;color:var(--amber);font-weight:600;letter-spacing:0.02em;
+  }
+
+  .hero-ctas{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:12.5px;letter-spacing:0.03em;
+    padding:11px 18px;border-radius:4px;border:1px solid var(--border);
+    transition:all .15s ease;
+  }
+  .btn-primary{background:var(--accent);color:#06110e;border-color:var(--accent);font-weight:600;}
+  .btn-primary:hover{background:#7ff0d8;}
+  .btn-ghost{color:var(--text-dim);}
+  .btn-ghost:hover{color:var(--text);border-color:var(--text-dim);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:64px 0;border-top:1px solid var(--border-soft);}
+  .sec-head{
+    display:flex;align-items:baseline;gap:12px;margin-bottom:34px;
+  }
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+  .sec-title{
+    font-family:var(--sans);font-weight:800;font-size:22px;letter-spacing:-0.01em;
+  }
+  .sec-sub{
+    font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-left:auto;
+    letter-spacing:0.04em;
+  }
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- ABOUT ---------- */
+  .about-body p{color:var(--text-dim);font-size:15px;max-width:640px;margin-bottom:14px;}
+  .about-body strong{color:var(--text);font-weight:600;}
+
+  /* ---------- SKILLS ---------- */
+  .skill-group{margin-bottom:26px;}
+  .skill-group-title{
+    font-family:var(--mono);font-size:11.5px;color:var(--text-faint);
+    letter-spacing:0.06em;margin-bottom:12px;text-transform:uppercase;
+  }
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:12.5px;color:var(--text-dim);
+    background:var(--surface);border:1px solid var(--border);
+    padding:8px 12px;border-radius:4px;
+  }
+  .chip .dot{width:5px;height:5px;}
+
+  /* ---------- EXPERIENCE ---------- */
+  .log{border-left:1px solid var(--border);margin-left:6px;}
+  .log-entry{position:relative;padding:0 0 34px 26px;}
+  .log-entry:last-child{padding-bottom:0;}
+  .log-entry::before{
+    content:'';position:absolute;left:-5px;top:4px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--accent);
+  }
+  .log-time{font-family:var(--mono);font-size:11.5px;color:var(--amber);letter-spacing:0.03em;margin-bottom:6px;}
+  .log-role{font-size:17px;font-weight:700;margin-bottom:2px;}
+  .log-org{font-family:var(--mono);font-size:12.5px;color:var(--text-dim);margin-bottom:12px;}
+  .log-org span{color:var(--text-faint);}
+  .log-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .log-list li{
+    font-size:14px;color:var(--text-dim);padding-left:16px;position:relative;max-width:600px;
+  }
+  .log-list li::before{content:'—';position:absolute;left:0;color:var(--text-faint);}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media (max-width:700px){.proj-grid{grid-template-columns:1fr;}}
+  .proj-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .proj-top{display:flex;align-items:center;justify-content:space-between;}
+  .proj-name{font-weight:700;font-size:15.5px;}
+  .badge{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.05em;
+    color:var(--accent);border:1px solid var(--accent-dim);border-radius:20px;padding:3px 9px;
+    white-space:nowrap;
+  }
+  .proj-role{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);}
+  .proj-card ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
+  .proj-card li{font-size:13.5px;color:var(--text-dim);padding-left:15px;position:relative;}
+  .proj-card li::before{content:'✓';position:absolute;left:0;color:var(--accent);font-size:11px;top:2px;}
+
+  /* ---------- EDU + CERTS ---------- */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  @media (max-width:700px){.two-col{grid-template-columns:1fr;gap:36px;}}
+  .card-title{
+    font-family:var(--mono);font-size:11.5px;color:var(--text-faint);
+    letter-spacing:0.06em;margin-bottom:16px;text-transform:uppercase;
+  }
+  .edu-item{margin-bottom:18px;}
+  .edu-item:last-child{margin-bottom:0;}
+  .edu-time{font-family:var(--mono);font-size:11px;color:var(--amber);}
+  .edu-name{font-weight:700;font-size:14.5px;margin:3px 0 2px;}
+  .edu-org{font-size:13px;color:var(--text-dim);}
+  .edu-extra{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-top:3px;}
+
+  .cert-item{
+    display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;
+  }
+  .cert-item:last-child{margin-bottom:0;}
+  .cert-icon{
+    width:28px;height:28px;flex:none;border-radius:4px;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);
+    font-size:11px;color:var(--accent);background:var(--surface);
+  }
+  .cert-name{font-size:13.5px;font-weight:600;}
+  .cert-meta{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:2px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-box{
+    background:var(--surface);border:1px solid var(--border);border-radius:6px;
+    padding:36px 30px;text-align:center;
+  }
+  .contact-box p{color:var(--text-dim);font-size:14px;margin-bottom:22px;font-family:var(--mono);}
+  .contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+  footer{padding:30px 0 50px;text-align:center;}
+  footer p{font-family:var(--mono);font-size:11px;color:var(--text-faint);}
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <div class="logo">NT<span>_</span>ops</div>
+    <nav class="links">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <div class="status-pill"><span class="dot"></span>OPEN TO WORK</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="tbtn"></div><div class="tbtn"></div><div class="tbtn"></div>
+        <div class="terminal-title">sudo whoami --verbose</div>
+      </div>
+      <div class="terminal-body">
+        <div class="prompt-line"><span class="sym">$</span>whoami</div>
+        <h1 class="name">Nischal Tiwari<span class="cursor"></span></h1>
+        <div class="role-line" id="roleLine"></div>
+        <div class="meta-row">
+          <span>Calgary, Alberta, Canada</span>
+          <span>On-site · Hybrid · Remote</span>
+          <span>Compugen Inc</span>
+        </div>
+        <div class="uptime-box">
+          <span class="uptime-label">SYSTEM_UPTIME (CURRENT ROLE):</span>
+          <span class="uptime-value" id="uptime">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">About</span>
+      <span class="sec-sub">// profile.md</span>
+    </div>
+    <div class="about-body">
+      <p>Technology professional with strong foundations in <strong>enterprise IT operations</strong> and growing expertise in structured project delivery.</p>
+      <p>As a Technical Analyst in a fast-paced enterprise environment, I support and optimize critical systems including <strong>Microsoft 365</strong> and <strong>Active Directory</strong>, working cross-functionally with Infrastructure, Networking, Security, and Business Systems teams to keep operations stable and efficient.</p>
+      <p>Beyond day-to-day support, I focus on <strong>process improvement</strong>, documentation standardization, and stakeholder communication — making sure technical resolutions align with broader business objectives.</p>
+      <p>To strengthen my transition into IT Project Management, I completed a Project Manager simulation with <strong>Siemens</strong> (risk assessment, KPI tracking, stakeholder management, structured planning) and a Software Engineering simulation with <strong>JPMorgan Chase &amp; Co.</strong> (backend systems, debugging, scalable architecture).</p>
+      <p>My focus: bridging technical operations with disciplined project execution to improve system reliability, operational efficiency, and measurable business outcomes.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Skills</span>
+      <span class="sec-sub">// all systems operational</span>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">IT Operations &amp; Support</div>
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>Incident Resolution</div>
+        <div class="chip"><span class="dot"></span>24/7 Enterprise Support</div>
+        <div class="chip"><span class="dot"></span>Hardware Lifecycle Mgmt</div>
+        <div class="chip"><span class="dot"></span>Remote Access Infrastructure</div>
+        <div class="chip"><span class="dot"></span>Vendor &amp; Contractor Coordination</div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Systems &amp; Infrastructure</div>
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>Microsoft 365 Administration</div>
+        <div class="chip"><span class="dot"></span>Active Directory</div>
+        <div class="chip"><span class="dot"></span>Network Infrastructure</div>
+        <div class="chip"><span class="dot"></span>Endpoint Connectivity</div>
+        <div class="chip"><span class="dot"></span>Kiosk &amp; Field Systems</div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Project &amp; Stakeholder Management</div>
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>Risk Assessment</div>
+        <div class="chip"><span class="dot"></span>KPI Tracking</div>
+        <div class="chip"><span class="dot"></span>Stakeholder Management</div>
+        <div class="chip"><span class="dot"></span>Structured Project Planning</div>
+        <div class="chip"><span class="dot"></span>Process Improvement</div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Tools</div>
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>Gamma</div>
+        <div class="chip"><span class="dot"></span>IntelliJ IDEA</div>
+        <div class="chip"><span class="dot"></span>HubSpot</div>
+        <div class="chip"><span class="dot"></span>Replit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Experience</span>
+      <span class="sec-sub">// deployment log</span>
+    </div>
+    <div class="log">
+      <div class="log-entry">
+        <div class="log-time">[2023-12 → PRESENT]</div>
+        <div class="log-role">Technical Support Analyst</div>
+        <div class="log-org">Compugen Inc <span>· Technology Services &amp; Enterprise Consulting · Calgary, AB</span></div>
+        <ul class="log-list">
+          <li>Spearhead strategic technical initiatives on-site for Canadian Natural Resources Limited (CNRL) in the oil &amp; gas sector.</li>
+          <li>Deliver end-to-end IT support across hardware, software, and networking systems in a high-demand, 24/7 industrial environment — prioritizing rapid incident resolution and system uptime.</li>
+          <li>Serve as primary on-site contact for site-wide PC hardware refresh initiatives: coordinating contractor workflows, device staging, and deployment schedules.</li>
+          <li>Execute hardware replacements and software enhancements for remote access kiosk infrastructure alongside network engineering teams.</li>
+          <li>Partner with internal infrastructure groups, third-party vendors, and field teams to streamline technical maintenance and service quality.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Projects</span>
+      <span class="sec-sub">// build history</span>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-name">Lenovo PCs Upgrade (CNRL)</div>
+          <div class="badge">COMPLETED</div>
+        </div>
+        <div class="proj-role">On-site lead · Key contact at Albian</div>
+        <ul>
+          <li>Acted as the key contact for the entire fleet upgrade initiative.</li>
+          <li>Led contractor teams to deliver efficiently and on schedule.</li>
+          <li>Enhanced remote access infrastructure for field teams.</li>
+          <li>Boosted system security, reliability, and performance site-wide.</li>
+        </ul>
+      </div>
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-name">Remote Access Kiosk Upgrade (CNRL)</div>
+          <div class="badge">COMPLETED</div>
+        </div>
+        <div class="proj-role">Infrastructure upgrade · Field &amp; plant personnel</div>
+        <ul>
+          <li>Upgraded and streamlined kiosk infrastructure end-to-end.</li>
+          <li>Improved remote access reliability for field and plant personnel.</li>
+          <li>Delivered more secure, efficient connectivity in a remote industrial environment.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">Education &amp; Certifications</span>
+      <span class="sec-sub">// credentials</span>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="card-title">Education</div>
+        <div class="edu-item">
+          <div class="edu-time">2026 — 2028</div>
+          <div class="edu-name">Bachelor of Science: Artificial Intelligence and Machine Learning</div>
+          <div class="edu-org">Athabasca University</div>
+          <div class="edu-extra">Major: Computing Information Systems</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-time">2021-01 — 2023-06</div>
+          <div class="edu-name">Computer Systems Networking &amp; Telecommunications</div>
+          <div class="edu-org">Centennial College</div>
+          <div class="edu-extra">GPA: 3.87</div>
+        </div>
+      </div>
+      <div>
+        <div class="card-title">Certifications</div>
+        <div class="cert-item">
+          <div class="cert-icon">FG</div>
+          <div>
+            <div class="cert-name">Software Engineering Job Simulation</div>
+            <div class="cert-meta">JPMorgan Chase &amp; Co. · via Forage · Feb 2026</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">FG</div>
+          <div>
+            <div class="cert-name">Project Manager Job Simulation</div>
+            <div class="cert-meta">Siemens Mobility · via Forage · Feb 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <span class="sec-title">Contact</span>
+      <span class="sec-sub">// connect</span>
+    </div>
+    <div class="contact-box">
+      <p>$ ping nischal --purpose="opportunities, collaboration, a good conversation"</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:alentalks@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/nischal-t-2b0a51194/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-ghost" href="http://github.com/nischaltiwari-xl" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built by Nischal Tiwari · Calgary, AB</p>
+</footer>
+
+<script>
+  // Typing effect for role line
+  const roles = [
+    "Technical Analyst — IT Operations",
+    "Cross-Functional Coordination",
+    "Bridging Support & Project Delivery",
+    "Aspiring IT Project Manager"
+  ];
+  const roleEl = document.getElementById('roleLine');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(reduced){
+    roleEl.textContent = roles.join(" · ");
+  } else {
+    let ri = 0, ci = 0, deleting = false;
+    function typeLoop(){
+      const current = roles[ri];
+      if(!deleting){
+        ci++;
+        roleEl.textContent = current.slice(0, ci);
+        if(ci === current.length){
+          deleting = true;
+          setTimeout(typeLoop, 1400);
+          return;
+        }
+      } else {
+        ci--;
+        roleEl.textContent = current.slice(0, ci);
+        if(ci === 0){
+          deleting = false;
+          ri = (ri + 1) % roles.length;
+        }
+      }
+      setTimeout(typeLoop, deleting ? 25 : 45);
+    }
+    typeLoop();
+  }
+
+  // Live uptime counter since role start (Dec 1, 2023)
+  const start = new Date('2023-12-01T00:00:00');
+  const uptimeEl = document.getElementById('uptime');
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function updateUptime(){
+    const now = new Date();
+    let diff = Math.max(0, Math.floor((now - start) / 1000));
+    const days = Math.floor(diff / 86400); diff -= days * 86400;
+    const hours = Math.floor(diff / 3600); diff -= hours * 3600;
+    const mins = Math.floor(diff / 60);
+    const secs = diff - mins * 60;
+    uptimeEl.textContent = `${days}d ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
+  }
+  updateUptime();
+  setInterval(updateUptime, 1000);
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
