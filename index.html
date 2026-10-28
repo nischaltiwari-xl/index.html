@@ -185,6 +185,12 @@
   /* ---------- ABOUT ---------- */
   .about-body p{color:var(--text-dim);font-size:15px;max-width:640px;margin-bottom:14px;}
   .about-body strong{color:var(--text);font-weight:600;}
+  .about-body code{
+    font-family:var(--mono);font-size:12.5px;color:var(--accent);
+    background:var(--surface);border:1px solid var(--border);
+    padding:1px 6px;border-radius:3px;
+  }
+  .cmt{font-family:var(--mono);font-size:12.5px;color:var(--text-faint);}
 
   /* ---------- SKILLS ---------- */
   .skill-group{margin-bottom:26px;}
@@ -275,9 +281,14 @@
 
   footer{padding:30px 0 50px;text-align:center;}
   footer p{font-family:var(--mono);font-size:11px;color:var(--text-faint);}
+
+  /* ---------- SMOKE CURSOR EFFECT ---------- */
+  #smoke{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40;}
 </style>
 </head>
 <body>
+
+<canvas id="smoke" aria-hidden="true"></canvas>
 
 <header class="topnav">
   <div class="topnav-inner">
@@ -323,14 +334,14 @@
     <div class="sec-head">
       <span class="sec-num">01</span>
       <span class="sec-title">About</span>
-      <span class="sec-sub">// profile.md</span>
+      <span class="sec-sub">// who i am</span>
     </div>
     <div class="about-body">
-      <p>Technology professional with strong foundations in <strong>enterprise IT operations</strong> and growing expertise in structured project delivery.</p>
-      <p>As a Technical Analyst in a fast-paced enterprise environment, I support and optimize critical systems including <strong>Microsoft 365</strong> and <strong>Active Directory</strong>, working cross-functionally with Infrastructure, Networking, Security, and Business Systems teams to keep operations stable and efficient.</p>
-      <p>Beyond day-to-day support, I focus on <strong>process improvement</strong>, documentation standardization, and stakeholder communication — making sure technical resolutions align with broader business objectives.</p>
-      <p>To strengthen my transition into IT Project Management, I completed a Project Manager simulation with <strong>Siemens</strong> (risk assessment, KPI tracking, stakeholder management, structured planning) and a Software Engineering simulation with <strong>JPMorgan Chase &amp; Co.</strong> (backend systems, debugging, scalable architecture).</p>
-      <p>My focus: bridging technical operations with disciplined project execution to improve system reliability, operational efficiency, and measurable business outcomes.</p>
+      <p>I'm a <strong>Deskside Support Analyst</strong> at Compugen, working on-site for CNRL in the oil &amp; gas sector. People rely on the technology I support to get their jobs done, and I take that seriously.</p>
+      <p>My work is hands-on: troubleshooting hardware, software, and network issues, replacing and upgrading equipment, working alongside infrastructure and network engineering teams, third-party vendors, and field teams, and documenting fixes so the next person has an easier time. I've also been the on-site contact for a site-wide PC hardware refresh and a remote access kiosk upgrade.</p>
+      <p>I'll be honest: moving beyond deskside support hasn't been easy. I've applied for roles to grow into, and not every door has opened. That hasn't stopped me. I'm studying <strong>Computing Information Systems</strong> at Athabasca University, I hold a project management diploma, and I keep building skills on my own, including this site.</p>
+      <p>I learn fast, I'm resourceful, and when I don't know something, I go and figure it out. What I want next is the chance to do more and learn more.</p>
+      <p><strong>Looking for:</strong> a role where I can take on more responsibility, keep learning, and contribute. I show up, I work hard, and I pick things up quickly.<br><span class="cmt">// let's talk</span></p>
     </div>
   </div>
 </section>
@@ -393,7 +404,7 @@
     <div class="sec-head">
       <span class="sec-num">03</span>
       <span class="sec-title">Experience</span>
-      <span class="sec-sub">// deployment log</span>
+      <span class="sec-sub">// work history</span>
     </div>
     <div class="log">
       <div class="log-entry">
@@ -574,6 +585,73 @@
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // Smoke trail that follows the mouse (desktop with a mouse only, off for reduced motion)
+  (function(){
+    const canvas = document.getElementById('smoke');
+    if(!canvas) return;
+    if(reduced || !window.matchMedia('(hover: hover)').matches){ canvas.style.display = 'none'; return; }
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize(){
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth; h = window.innerHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const puffs = [];
+    let lx = null, ly = null, running = false;
+
+    function spawn(x, y, n){
+      for(let i = 0; i < n; i++){
+        puffs.push({
+          x: x + (Math.random() - 0.5) * 10,
+          y: y + (Math.random() - 0.5) * 10,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: -(Math.random() * 0.6 + 0.2),
+          r: 8 + Math.random() * 10,
+          grow: 0.35 + Math.random() * 0.3,
+          life: 0,
+          max: 70 + Math.random() * 50,
+          seed: Math.random() * 100
+        });
+      }
+      if(puffs.length > 160) puffs.splice(0, puffs.length - 160);
+    }
+
+    window.addEventListener('mousemove', function(e){
+      const d = lx === null ? 0 : Math.hypot(e.clientX - lx, e.clientY - ly);
+      lx = e.clientX; ly = e.clientY;
+      spawn(lx, ly, Math.min(3, 1 + Math.floor(d / 18)));
+      if(!running){ running = true; requestAnimationFrame(tick); }
+    });
+    document.addEventListener('mouseleave', function(){ lx = ly = null; });
+
+    function tick(){
+      ctx.clearRect(0, 0, w, h);
+      for(let i = puffs.length - 1; i >= 0; i--){
+        const p = puffs[i];
+        p.life++;
+        if(p.life >= p.max){ puffs.splice(i, 1); continue; }
+        p.x += p.vx + Math.sin((p.life + p.seed) * 0.05) * 0.25;
+        p.y += p.vy;
+        p.vy *= 0.992;
+        p.r += p.grow;
+        const t = p.life / p.max;
+        const a = (1 - t) * (t < 0.15 ? t / 0.15 : 1) * 0.09;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+        g.addColorStop(0, 'rgba(160,220,215,' + a + ')');
+        g.addColorStop(1, 'rgba(160,220,215,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      if(puffs.length){ requestAnimationFrame(tick); } else { running = false; }
+    }
+  })();
 </script>
 
 </body>
